@@ -98,10 +98,10 @@ export default function Home() {
             {/* Itinerario Section */}
             <section
                 id="itinerario"
-                className="flex min-h-screen items-center py-20 px-4"
+                className="flex min-h-screen items-center py-20"
             >
-                <div className="container mx-auto">
-                    <div className="mx-auto max-w-4xl space-y-12">
+                <div className="w-full space-y-12">
+                    <div className="container mx-auto px-4">
                         <div className="text-center space-y-4">
                             <h2 className="font-serif text-4xl font-bold sm:text-5xl">
                                 Itinerario
@@ -110,35 +110,23 @@ export default function Home() {
                                 Programa del día de nuestra boda
                             </p>
                         </div>
-                        <div className="grid gap-6 md:grid-cols-2">
-                            {mockItinerary.map((event) => (
-                                <Card key={event.id}>
-                                    <CardHeader>
-                                        <div className="flex items-start justify-between">
-                                            <div className="space-y-1">
-                                                <CardTitle>
-                                                    {event.title}
-                                                </CardTitle>
-                                                <CardDescription>
-                                                    {event.location}
-                                                </CardDescription>
-                                            </div>
-                                            <div className="flex items-center gap-1 text-primary">
-                                                <Clock className="h-4 w-4" />
-                                                <span className="font-semibold">
-                                                    {event.time}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <p className="text-muted-foreground">
-                                            {event.description}
-                                        </p>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
+                        {mockItinerary.map((event) => (
+                            <Card
+                                key={event.id}
+                                className="flex flex-col items-center justify-center min-h-[180px] sm:min-h-[220px] md:min-h-[260px]"
+                            >
+                                <CardContent className="flex flex-col items-center justify-center py-8">
+                                    <div className="text-5xl sm:text-6xl md:text-7xl font-semibold">
+                                        {event.time}
+                                    </div>
+                                    <div className="mt-4 text-sm sm:text-base tracking-[0.25em] uppercase">
+                                        {event.title}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
                     </div>
                 </div>
             </section>
