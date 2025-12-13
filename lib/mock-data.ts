@@ -24,6 +24,7 @@ export interface Gift {
     reservedBy?: string;
     purchasedBy?: string;
     imageUrl?: string;
+    fundedAmount: number;
 }
 
 export interface WeddingEvent {
@@ -107,6 +108,8 @@ export const mockGifts: Gift[] = [
         price: 1500,
         status: "purchased",
         purchasedBy: "María García",
+        fundedAmount: 1500,
+        imageUrl: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&h=400&fit=crop",
     },
     {
         id: "2",
@@ -115,6 +118,8 @@ export const mockGifts: Gift[] = [
         price: 8500,
         status: "reserved",
         reservedBy: "Juan Pérez",
+        fundedAmount: 3000,
+        imageUrl: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400&h=400&fit=crop",
     },
     {
         id: "3",
@@ -122,6 +127,8 @@ export const mockGifts: Gift[] = [
         description: "6 toallas de baño premium",
         price: 1200,
         status: "available",
+        fundedAmount: 0,
+        imageUrl: "https://images.unsplash.com/photo-1600096194534-95cf5ece04cf?w=400&h=400&fit=crop",
     },
     {
         id: "4",
@@ -129,6 +136,8 @@ export const mockGifts: Gift[] = [
         description: "Batidora profesional con accesorios",
         price: 4500,
         status: "available",
+        fundedAmount: 1575,
+        imageUrl: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400&h=400&fit=crop",
     },
     {
         id: "5",
@@ -137,6 +146,8 @@ export const mockGifts: Gift[] = [
         price: 3200,
         status: "purchased",
         purchasedBy: "Carlos López",
+        fundedAmount: 3200,
+        imageUrl: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=400&h=400&fit=crop",
     },
     {
         id: "6",
@@ -145,6 +156,8 @@ export const mockGifts: Gift[] = [
         price: 6800,
         status: "reserved",
         reservedBy: "Ana Martínez",
+        fundedAmount: 2380,
+        imageUrl: "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=400&h=400&fit=crop",
     },
 ];
 

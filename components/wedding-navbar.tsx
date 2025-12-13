@@ -21,8 +21,8 @@ const navItems = [
 ];
 
 const navItemsRight = [
-    { label: "MESA DE REGALOS", href: "#regalos" },
     { label: "CÓDIGO DE VESTIMENTA", href: "#vestimenta" },
+    { label: "MESA DE REGALOS", href: "#regalos" },
     { label: "RSVP", href: "#rsvp" },
 ];
 
@@ -30,8 +30,8 @@ const bottomNavItems = [
     { label: "Itinerario", href: "#itinerario", icon: ListChecks },
     { label: "Ubicación", href: "#ubicacion", icon: MapPin },
     { label: "Hospedaje", href: "#hospedaje", icon: BedDouble },
-    { label: "Regalos", href: "#regalos", icon: Gift },
     { label: "Vestimenta", href: "#vestimenta", icon: Shirt },
+    { label: "Regalos", href: "#regalos", icon: Gift },
     { label: "RSVP", href: "#rsvp", icon: CalendarCheck },
 ];
 
@@ -44,8 +44,8 @@ export function WeddingNavbar() {
                 "itinerario",
                 "ubicacion",
                 "hospedaje",
-                "regalos",
                 "vestimenta",
+                "regalos",
                 "rsvp",
             ];
             const scrollPosition = window.scrollY + 100;
