@@ -27,6 +27,25 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Progress } from "@/components/ui/progress";
+import {
+    Item,
+    ItemContent,
+    ItemDescription,
+    ItemGroup,
+    ItemMedia,
+    ItemTitle,
+    ItemFooter,
+} from "@/components/ui/item";
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+} from "@/components/ui/sheet";
+import Image from "next/image";
 import {
     Calendar,
     MapPin,
@@ -55,10 +74,62 @@ export default function Home() {
         dietary: "",
     });
 
+    // Auth state
+    const [isAuthed, setIsAuthed] = useState(false);
+    const [authDialogOpen, setAuthDialogOpen] = useState(false);
+    const [pendingAction, setPendingAction] = useState<"rsvp" | "gift" | null>(null);
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [otpCode, setOtpCode] = useState("");
+    const [otpSent, setOtpSent] = useState(false);
+
     const handleRSVPSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (!isAuthed) {
+            setPendingAction("rsvp");
+            setAuthDialogOpen(true);
+            return;
+        }
         console.log("RSVP submitted:", rsvpForm);
         alert("¡Gracias por confirmar tu asistencia! (Demo - no se guardó)");
+    };
+
+    const handleGiftContribute = () => {
+        if (!isAuthed) {
+            setPendingAction("gift");
+            setAuthDialogOpen(true);
+            return;
+        }
+        // Placeholder for future Stripe integration
+        alert("Contribución de regalo (próximamente con Stripe)");
+    };
+
+    const handleSendOTP = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Placeholder for OTP send logic
+        console.log("Sending OTP to:", phoneNumber);
+        setOtpSent(true);
+        alert(`Código OTP enviado a ${phoneNumber} (Demo)`);
+    };
+
+    const handleVerifyOTP = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Placeholder for OTP verification
+        console.log("Verifying OTP:", otpCode);
+        setIsAuthed(true);
+        setAuthDialogOpen(false);
+        alert("¡Autenticación exitosa! (Demo)");
+        
+        // Resume pending action
+        if (pendingAction === "rsvp") {
+            // The form will now submit on next attempt
+            console.log("Ready to submit RSVP");
+        } else if (pendingAction === "gift") {
+            alert("Contribución de regalo (próximamente con Stripe)");
+        }
+        setPendingAction(null);
+        setOtpSent(false);
+        setPhoneNumber("");
+        setOtpCode("");
     };
 
     return (
@@ -368,110 +439,6 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Mesa de Regalos Section */}
-            <section
-                id="regalos"
-                className="flex min-h-screen items-center bg-muted/20 py-20 px-4"
-            >
-                <div className="container mx-auto">
-                    <div className="mx-auto max-w-4xl space-y-12">
-                        <div className="text-center space-y-4">
-                            <h2 className="font-serif text-4xl font-bold sm:text-5xl">
-                                Mesa de Regalos
-                            </h2>
-                            <p className="text-lg text-muted-foreground">
-                                Tu presencia es nuestro mejor regalo, pero si
-                                deseas obsequiarnos algo...
-                            </p>
-                        </div>
-                        <div className="space-y-6">
-                            <div className="grid gap-4 md:grid-cols-2">
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Liverpool</CardTitle>
-                                        <CardDescription>
-                                            Mesa de regalos en línea
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <Button className="w-full">
-                                            <Gift className="mr-2 h-4 w-4" />
-                                            Ver Mesa de Regalos
-                                        </Button>
-                                    </CardContent>
-                                </Card>
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Amazon</CardTitle>
-                                        <CardDescription>
-                                            Lista de deseos
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <Button className="w-full">
-                                            <Gift className="mr-2 h-4 w-4" />
-                                            Ver Lista
-                                        </Button>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>
-                                        Algunos regalos disponibles
-                                    </CardTitle>
-                                    <CardDescription>
-                                        Vista previa de nuestra lista (solo para
-                                        referencia)
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="grid gap-4 sm:grid-cols-2">
-                                        {mockGifts.slice(0, 4).map((gift) => (
-                                            <div
-                                                key={gift.id}
-                                                className="flex items-start justify-between rounded-lg border p-4"
-                                            >
-                                                <div className="space-y-1">
-                                                    <p className="font-medium">
-                                                        {gift.name}
-                                                    </p>
-                                                    <p className="text-sm text-muted-foreground">
-                                                        $
-                                                        {gift.price.toLocaleString(
-                                                            "es-MX"
-                                                        )}{" "}
-                                                        MXN
-                                                    </p>
-                                                </div>
-                                                <Badge
-                                                    variant={
-                                                        gift.status ===
-                                                        "available"
-                                                            ? "default"
-                                                            : gift.status ===
-                                                                "reserved"
-                                                              ? "secondary"
-                                                              : "outline"
-                                                    }
-                                                >
-                                                    {gift.status === "available"
-                                                        ? "Disponible"
-                                                        : gift.status ===
-                                                            "reserved"
-                                                          ? "Reservado"
-                                                          : "Comprado"}
-                                                </Badge>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Código de Vestimenta Section */}
             <section
                 id="vestimenta"
@@ -543,6 +510,118 @@ export default function Home() {
                                 </div>
                             </CardContent>
                         </Card>
+                    </div>
+                </div>
+            </section>
+
+            {/* Mesa de Regalos Section */}
+            <section
+                id="regalos"
+                className="flex min-h-screen items-center bg-muted/20 py-20 px-4"
+            >
+                <div className="container mx-auto">
+                    <div className="mx-auto max-w-4xl space-y-12">
+                        <div className="text-center space-y-4">
+                            <h2 className="font-serif text-4xl font-bold sm:text-5xl">
+                                Mesa de Regalos
+                            </h2>
+                            <p className="text-lg text-muted-foreground">
+                                Tu presencia es nuestro mejor regalo, pero si
+                                deseas obsequiarnos algo...
+                            </p>
+                        </div>
+                        <div className="space-y-6">
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>
+                                        Nuestra lista de regalos
+                                    </CardTitle>
+                                    <CardDescription>
+                                        Puedes contribuir con el monto que desees a cualquier regalo
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <ScrollArea className="h-[420px] w-full rounded-md">
+                                        <ItemGroup className="gap-3 p-1">
+                                            {mockGifts.map((gift) => {
+                                                const fundedPercentage = Math.min(
+                                                    100,
+                                                    (gift.fundedAmount / gift.price) * 100
+                                                );
+                                                return (
+                                                    <Item
+                                                        key={gift.id}
+                                                        variant="outline"
+                                                        size="sm"
+                                                        className="flex-col items-start"
+                                                    >
+                                                        <div className="flex w-full items-start gap-2 sm:gap-3">
+                                                            <ItemMedia variant="image" className="size-16 sm:size-20 shrink-0">
+                                                                <Image
+                                                                    src={gift.imageUrl || `https://avatar.vercel.sh/${gift.name}`}
+                                                                    alt={gift.name}
+                                                                    width={80}
+                                                                    height={80}
+                                                                    className="object-cover rounded"
+                                                                />
+                                                            </ItemMedia>
+                                                            <ItemContent className="flex-1 min-h-16 sm:h-20 flex flex-col justify-between">
+                                                                <div className="space-y-0">
+                                                                    <ItemTitle className="line-clamp-1 text-xs sm:text-sm leading-tight">
+                                                                        {gift.name}
+                                                                    </ItemTitle>
+                                                                    <ItemDescription className="line-clamp-1 text-[10px] sm:text-xs leading-tight">
+                                                                        {gift.description}
+                                                                    </ItemDescription>
+                                                                    <p className="text-[10px] sm:text-xs font-semibold leading-tight">
+                                                                        ${gift.price.toLocaleString("es-MX")} MXN
+                                                                    </p>
+                                                                </div>
+                                                                <Badge
+                                                                    variant={
+                                                                        gift.status === "available"
+                                                                            ? "default"
+                                                                            : gift.status === "reserved"
+                                                                              ? "secondary"
+                                                                              : "outline"
+                                                                    }
+                                                                    className="text-[10px] w-fit px-1.5 sm:px-1.5 py-0.5 sm:py-0 h-auto sm:h-4 leading-none"
+                                                                >
+                                                                    {gift.status === "available"
+                                                                        ? "Disponible"
+                                                                        : gift.status === "reserved"
+                                                                          ? "Reservado"
+                                                                          : "Comprado"}
+                                                                </Badge>
+                                                            </ItemContent>
+                                                            <div className="flex flex-col items-end justify-center min-h-16 sm:h-20">
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant={fundedPercentage >= 100 ? "outline" : "default"}
+                                                                    disabled={fundedPercentage >= 100}
+                                                                    onClick={handleGiftContribute}
+                                                                    className="h-7 w-7 sm:h-8 sm:w-8 p-0"
+                                                                >
+                                                                    <Gift className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                                                                </Button>
+                                                            </div>
+                                                        </div>
+                                                        <ItemFooter className="w-full mt-2 gap-1">
+                                                            <div className="flex-1 space-y-0.5">
+                                                                <Progress value={fundedPercentage} className="h-1.5" />
+                                                                <p className="text-xs text-muted-foreground">
+                                                                    ${gift.fundedAmount.toLocaleString("es-MX")} / ${gift.price.toLocaleString("es-MX")} MXN ({fundedPercentage.toFixed(0)}%)
+                                                                </p>
+                                                            </div>
+                                                        </ItemFooter>
+                                                    </Item>
+                                                );
+                                            })}
+                                        </ItemGroup>
+                                    </ScrollArea>
+                                </CardContent>
+                            </Card>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -706,6 +785,78 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+
+            {/* Auth Dialog */}
+            <Sheet open={authDialogOpen} onOpenChange={setAuthDialogOpen}>
+                <SheetContent>
+                    <SheetHeader>
+                        <SheetTitle>Iniciar sesión</SheetTitle>
+                        <SheetDescription>
+                            Para {pendingAction === "rsvp" ? "confirmar tu asistencia" : "contribuir a un regalo"}, necesitamos verificar tu identidad.
+                        </SheetDescription>
+                    </SheetHeader>
+                    <div className="mt-6 space-y-6">
+                        {!otpSent ? (
+                            <form onSubmit={handleSendOTP} className="space-y-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="phone">
+                                        Número de teléfono
+                                    </Label>
+                                    <Input
+                                        id="phone"
+                                        type="tel"
+                                        placeholder="+52 123 456 7890"
+                                        value={phoneNumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)}
+                                        required
+                                    />
+                                    <p className="text-xs text-muted-foreground">
+                                        Te enviaremos un código de verificación
+                                    </p>
+                                </div>
+                                <Button type="submit" className="w-full">
+                                    <Phone className="mr-2 h-4 w-4" />
+                                    Enviar código
+                                </Button>
+                            </form>
+                        ) : (
+                            <form onSubmit={handleVerifyOTP} className="space-y-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="otp">
+                                        Código de verificación
+                                    </Label>
+                                    <Input
+                                        id="otp"
+                                        type="text"
+                                        placeholder="123456"
+                                        value={otpCode}
+                                        onChange={(e) => setOtpCode(e.target.value)}
+                                        required
+                                        maxLength={6}
+                                    />
+                                    <p className="text-xs text-muted-foreground">
+                                        Ingresa el código enviado a {phoneNumber}
+                                    </p>
+                                </div>
+                                <Button type="submit" className="w-full">
+                                    Verificar
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    className="w-full"
+                                    onClick={() => {
+                                        setOtpSent(false);
+                                        setOtpCode("");
+                                    }}
+                                >
+                                    Cambiar número
+                                </Button>
+                            </form>
+                        )}
+                    </div>
+                </SheetContent>
+            </Sheet>
 
             {/* Footer */}
             <footer className="border-t py-8 px-4">
