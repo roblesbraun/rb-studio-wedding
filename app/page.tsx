@@ -131,13 +131,55 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* Fotos de los novios Section */}
+            <section className="flex min-h-screen items-center bg-muted/10 py-20 px-4">
+                <div className="container mx-auto">
+                    <div className="mx-auto max-w-6xl">
+                        <div className="grid gap-6 md:grid-cols-3">
+                            {/* Photo Card 1 */}
+                            <Card className="overflow-hidden border-0 p-0 gap-0">
+                                <CardContent className="p-0">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=800&auto=format&fit=crop"
+                                        alt="Bride and groom walking on a hill"
+                                        className="h-[500px] w-full object-cover"
+                                    />
+                                </CardContent>
+                            </Card>
+
+                            {/* Photo Card 2 */}
+                            <Card className="overflow-hidden border-0 p-0 gap-0">
+                                <CardContent className="p-0">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?q=80&w=800&auto=format&fit=crop"
+                                        alt="Wedding rings on wooden box with flowers"
+                                        className="h-[500px] w-full object-cover"
+                                    />
+                                </CardContent>
+                            </Card>
+
+                            {/* Photo Card 3 */}
+                            <Card className="overflow-hidden border-0 p-0 gap-0">
+                                <CardContent className="p-0">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?q=80&w=800&auto=format&fit=crop"
+                                        alt="Newly married couple walking through a field"
+                                        className="h-[500px] w-full object-cover"
+                                    />
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Ubicación Section */}
             <section
                 id="ubicacion"
                 className="flex min-h-screen items-center bg-muted/20 py-20 px-4"
             >
                 <div className="container mx-auto">
-                    <div className="mx-auto max-w-4xl space-y-12">
+                    <div className="mx-auto max-w-6xl space-y-12">
                         <div className="text-center space-y-4">
                             <h2 className="font-serif text-4xl font-bold sm:text-5xl">
                                 Ubicación
@@ -157,12 +199,25 @@ export default function Home() {
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-6">
-                                <div className="aspect-video w-full rounded-lg bg-muted flex items-center justify-center">
-                                    <div className="text-center space-y-2">
-                                        <MapPin className="h-12 w-12 mx-auto text-muted-foreground" />
-                                        <p className="text-sm text-muted-foreground">
-                                            Mapa del lugar
-                                        </p>
+                                <div className="overflow-hidden rounded-lg border">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x">
+                                        {/* Venue Image */}
+                                        <div className="aspect-video md:aspect-4/3 w-full">
+                                            <img
+                                                src="https://cdn0.bodas.com.mx/vendor/5031/3_2/960/jpg/margaty-4_5_145031-175683633586796.jpeg"
+                                                alt="Venue photo"
+                                                className="h-full w-full object-cover"
+                                            />
+                                        </div>
+                                        {/* Map Placeholder */}
+                                        <div className="aspect-video md:aspect-4/3 w-full bg-muted flex items-center justify-center">
+                                            <div className="text-center space-y-2">
+                                                <MapPin className="h-12 w-12 mx-auto text-muted-foreground" />
+                                                <p className="text-sm text-muted-foreground">
+                                                    Mapa del lugar
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="flex gap-4">
