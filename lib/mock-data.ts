@@ -42,6 +42,7 @@ export interface Hotel {
     phone: string;
     website: string;
     description: string;
+    imageUrl: string;
 }
 
 // Mock guests data
@@ -189,6 +190,8 @@ export const mockHotels: Hotel[] = [
         phone: "+52 55 1234 5678",
         website: "https://hotelcasareal.com",
         description: "Hotel boutique con encanto colonial y desayuno incluido",
+        imageUrl:
+            "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%23fafafa'/><stop offset='100%25' stop-color='%23e4e4e7'/></linearGradient></defs><rect width='100%25' height='100%25' fill='url(%23g)'/><g fill='none' stroke='%23d4d4d8' stroke-width='6'><rect x='72' y='72' width='1056' height='531' rx='28'/><path d='M160 500 L410 310 L560 430 L760 240 L1040 520'/></g><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2352525b' font-family='ui-sans-serif,system-ui,-apple-system' font-size='44'>Hotel%20Boutique%20Casa%20Real</text></svg>",
     },
     {
         id: "2",
@@ -198,15 +201,8 @@ export const mockHotels: Hotel[] = [
         phone: "+52 55 8765 4321",
         website: "https://grandhotelplaza.com",
         description: "Hotel moderno con spa y alberca",
-    },
-    {
-        id: "3",
-        name: "Posada del Sol",
-        distance: "3 km del venue",
-        priceRange: "$1,200 - $1,800 MXN",
-        phone: "+52 55 2468 1357",
-        website: "https://posadadelsol.com",
-        description: "Opción económica con habitaciones cómodas",
+        imageUrl:
+            "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%23fafafa'/><stop offset='100%25' stop-color='%23e4e4e7'/></linearGradient></defs><rect width='100%25' height='100%25' fill='url(%23g)'/><g fill='none' stroke='%23d4d4d8' stroke-width='6'><rect x='72' y='72' width='1056' height='531' rx='28'/><path d='M160 500 L410 310 L560 430 L760 240 L1040 520'/></g><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2352525b' font-family='ui-sans-serif,system-ui,-apple-system' font-size='44'>Grand%20Hotel%20Plaza</text></svg>",
     },
 ];
 
