@@ -21,6 +21,13 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel";
+import {
     Calendar,
     MapPin,
     Clock,
@@ -257,19 +264,31 @@ export default function Home() {
                                 Hoteles recomendados cerca del venue
                             </p>
                         </div>
-                        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                            {mockHotels.map((hotel) => (
-                                <Card key={hotel.id}>
+                        {(() => {
+                            const HospedajeCard = ({
+                                hotel,
+                            }: {
+                                hotel: (typeof mockHotels)[number];
+                            }) => (
+                                <Card className="h-full overflow-hidden flex flex-col">
+                                    <div className="w-full aspect-video bg-muted/30 overflow-hidden">
+                                        <img
+                                            src={hotel.imageUrl}
+                                            alt={hotel.name}
+                                            className="h-full w-full object-cover"
+                                            loading="lazy"
+                                        />
+                                    </div>
                                     <CardHeader>
-                                        <CardTitle className="flex items-start gap-2">
-                                            <Hotel className="h-5 w-5 mt-1 shrink-0" />
+                                        <CardTitle className="flex items-center gap-2">
+                                            <Hotel className="h-5 w-5 shrink-0" />
                                             <span>{hotel.name}</span>
                                         </CardTitle>
                                         <CardDescription>
                                             {hotel.distance}
                                         </CardDescription>
                                     </CardHeader>
-                                    <CardContent className="space-y-4">
+                                    <CardContent className="flex flex-col gap-4 grow">
                                         <p className="text-sm text-muted-foreground">
                                             {hotel.description}
                                         </p>
@@ -283,24 +302,68 @@ export default function Home() {
                                                 </span>
                                             </div>
                                             <div className="flex items-center gap-2 text-sm">
-                                                <Phone className="h-4 w-4" />
+                                                <Phone className="h-4 w-4 shrink-0" />
                                                 <span className="text-muted-foreground">
                                                     {hotel.phone}
                                                 </span>
                                             </div>
                                         </div>
                                         <Button
+                                            asChild
                                             variant="outline"
-                                            className="w-full"
+                                            className="w-full mt-auto"
                                             size="sm"
                                         >
-                                            <ExternalLink className="mr-2 h-4 w-4" />
-                                            Ver sitio web
+                                            <a
+                                                href={hotel.website}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                            >
+                                                <ExternalLink className="mr-2 h-4 w-4" />
+                                                Ver sitio web
+                                            </a>
                                         </Button>
                                     </CardContent>
                                 </Card>
-                            ))}
-                        </div>
+                            );
+
+                            return (
+                                <>
+                                    {/* Mobile carousel */}
+                                    <div className="md:hidden">
+                                        <Carousel
+                                            opts={{ align: "start" }}
+                                            className="w-full"
+                                        >
+                                            <CarouselContent>
+                                                {mockHotels.map((hotel) => (
+                                                    <CarouselItem
+                                                        key={hotel.id}
+                                                        className="sm:basis-4/5"
+                                                    >
+                                                        <HospedajeCard
+                                                            hotel={hotel}
+                                                        />
+                                                    </CarouselItem>
+                                                ))}
+                                            </CarouselContent>
+                                            <CarouselPrevious className="left-2" />
+                                            <CarouselNext className="right-2" />
+                                        </Carousel>
+                                    </div>
+
+                                    {/* Desktop grid */}
+                                    <div className="hidden md:grid gap-6 md:grid-cols-2">
+                                        {mockHotels.map((hotel) => (
+                                            <HospedajeCard
+                                                key={hotel.id}
+                                                hotel={hotel}
+                                            />
+                                        ))}
+                                    </div>
+                                </>
+                            );
+                        })()}
                     </div>
                 </div>
             </section>
